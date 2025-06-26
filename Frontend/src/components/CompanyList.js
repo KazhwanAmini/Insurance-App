@@ -1,10 +1,10 @@
 // src/components/CompanyList.js
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../api';
 
 const fetchCompanies = async () => {
-  const { data } = await axios.get('http://localhost:8000/api/companies/');
+  const { data } = await api.get('http://localhost:8000/api/companies/');
   return data;
 };
 

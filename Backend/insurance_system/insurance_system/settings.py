@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'insurance',
+    'rest_framework_simplejwt',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

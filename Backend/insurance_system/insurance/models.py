@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class Company(models.Model):
@@ -11,13 +12,14 @@ class User(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=255)
     email = models.EmailField()
+    is_superadmin = models.BooleanField(default=False) 
 
 class Customer(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    national_id = models.CharField(max_length=20)
-    address = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=20)
+    full_name = models.CharField(max_length=255)
+    national_id = models.CharField(max_length=10)
+    address = models.TextField()
+    mobile_number = models.CharField(max_length=15)
 
 class InsurancePolicy(models.Model):
     POLICY_TYPES = [

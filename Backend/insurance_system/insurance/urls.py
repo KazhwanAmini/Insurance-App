@@ -5,7 +5,8 @@ from .views import *
 router = DefaultRouter()
 router.register('companies', CompanyViewSet)
 router.register('users', UserViewSet)
-router.register('customers', CustomerViewSet)
+router.register('customers', CustomerViewSet, basename='customer')
+
 router.register('policies', InsurancePolicyViewSet)
 
 urlpatterns = [
