@@ -7,14 +7,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_user_info(request):
-    user = request.user
-    return Response({
-        'username': user.username,
-        'is_superuser': user.is_superuser
-    })
 
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
@@ -46,3 +38,13 @@ class InsurancePolicyViewSet(viewsets.ModelViewSet):
         if user.is_superuser or getattr(user, 'is_superadmin', False):
             return InsurancePolicy.objects.all()
         return InsurancePolicy.objects.filter(customer__company=user.company)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_info(request):
+    return Response({
+        'id': request.user.id,
+        'username': request.user.username,
+        'is_superuser': request.user.is_superuser
+    })

@@ -11,27 +11,24 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // 1. Get tokens
-      const res = await api.post('token/', credentials);
-      localStorage.setItem('access', res.data.access);
-      localStorage.setItem('refresh', res.data.refresh);
+  e.preventDefault();
+  try {
+    const res = await api.post('token/', credentials);
+    localStorage.setItem('access', res.data.access);
+    localStorage.setItem('refresh', res.data.refresh);
 
-      // 2. Get user role info
-      const userRes = await api.get('me/');
-      const isSuperuser = userRes.data.is_superuser;
+    const userRes = await api.get('me/');
+    const isSuperuser = userRes.data.is_superuser;
 
-      // 3. Redirect based on role
-      if (isSuperuser) {
-        navigate('/companies');
-      } else {
-        navigate('/customers');
-      }
-    } catch (err) {
-      alert('Invalid credentials');
+    if (isSuperuser) {
+      navigate('/companies');
+    } else {
+      navigate('/customers');
     }
-  };
+  } catch (err) {
+    alert('Invalid credentials');
+  }
+};
 
   return (
     <div style={{ padding: '20px' }}>
