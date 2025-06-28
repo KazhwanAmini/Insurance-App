@@ -3,7 +3,18 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Company, User, Customer, InsurancePolicy
 from .serializers import *
 from .permissions import IsCompanyUserOrAdmin
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_info(request):
+    user = request.user
+    return Response({
+        'username': user.username,
+        'is_superuser': user.is_superuser
+    })
 
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()

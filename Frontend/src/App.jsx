@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
-import LoginForm from './components/LoginForm';
-import CustomerList from './components/CustomerList';
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem('access')
-  );
-
-
-  if (!isLoggedIn) return <LoginForm onLogin={() => setIsLoggedIn(true)} />;
-
   return (
-    <div className="container">
-      <h1>Dashboard</h1>
-      <CustomerList />
-      {/* You can add CompanyList or PolicyList here too */}
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 

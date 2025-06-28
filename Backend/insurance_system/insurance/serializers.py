@@ -9,7 +9,7 @@ class CompanySerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'username', 'is_superuser']
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
