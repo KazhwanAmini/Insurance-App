@@ -18,6 +18,7 @@ const Header = () => {
       <div className="logo">Insurance App</div>
       <nav className="nav">
         <Link to="/">Home</Link>
+        {!token && <Link to="/register">Sign Up</Link>}
         {!token && <Link to="/login">Login</Link>}
         {token && <button onClick={handleLogout}>Logout</button>}
       </nav>
@@ -26,3 +27,4 @@ const Header = () => {
 };
 
 export default Header;
+    

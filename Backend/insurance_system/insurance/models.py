@@ -5,7 +5,6 @@ class Company(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20)
-    service_expiration = models.DateField()
 
 class User(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -15,11 +14,12 @@ class User(models.Model):
     is_superadmin = models.BooleanField(default=False) 
 
 class Customer(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=255)
+    full_name = models.CharField(max_length=100)
     national_id = models.CharField(max_length=10)
-    address = models.TextField()
-    mobile_number = models.CharField(max_length=15)
+    address = models.CharField(max_length=255)
+    phone = models.CharField(max_length=20)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    service_expiration = models.DateField(null=True, blank=True)
 
 class InsurancePolicy(models.Model):
     POLICY_TYPES = [
