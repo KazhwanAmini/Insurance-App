@@ -25,20 +25,15 @@ class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = '__all__'
-
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    is_superuser = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'company', 'is_superuser']
+        fields = ['id', 'username', 'email', 'company', 'is_superuser']
 
-    def create(self, validated_data):
-        password = validated_data.pop('password')
-        user = User(**validated_data)
-        user.set_password(password)
-        user.save()
-        return user
+    def get_is_superuser(self, obj):
+        return obj.is_superuser
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:

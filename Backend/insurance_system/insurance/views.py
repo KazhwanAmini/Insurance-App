@@ -42,22 +42,30 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class CustomerViewSet(viewsets.ModelViewSet):
     serializer_class = CustomerSerializer
-    permission_classes = [IsCompanyUserOrAdmin]
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_superuser or getattr(user, 'is_superadmin', False):
-            return Customer.objects.all()
-        return Customer.objects.filter(company=user.company)
-
-class InsurancePolicyViewSet(viewsets.ModelViewSet):
-    queryset = InsurancePolicy.objects.none()  # 👈 Add this line
-    serializer_class = InsurancePolicySerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        # Prevent crash when Swagger is generating schema
+        if getattr(self, 'swagger_fake_view', False):
+            return Customer.objects.none()
+
         user = self.request.user
-        if user.is_superuser or getattr(user, 'is_superadmin', False):
+        if user.is_superuser:
+            return Customer.objects.all()
+        return Customer.objects.filter(company=user.company)
+
+
+class InsurancePolicyViewSet(viewsets.ModelViewSet):
+    serializer_class = InsurancePolicySerializer
+    permission_classes = [IsAuthenticated]
+    queryset = InsurancePolicy.objects.all()  # ✅ ADD THIS LINE
+
+    def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return InsurancePolicy.objects.none()
+
+        user = self.request.user
+        if user.is_superuser:
             return InsurancePolicy.objects.all()
         return InsurancePolicy.objects.filter(customer__company=user.company)
 
