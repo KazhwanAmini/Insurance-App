@@ -41,6 +41,9 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = '__all__'
+        extra_kwargs = {
+            'company': {'read_only': True}
+        }
 
 class InsurancePolicySerializer(serializers.ModelSerializer):
     class Meta:

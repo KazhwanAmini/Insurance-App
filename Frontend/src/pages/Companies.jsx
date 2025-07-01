@@ -1,12 +1,5 @@
 import React from 'react';
+import CompanyList from '../components/CompanyList';
 
-const Companies = () => {
-  return (
-    <div>
-      <h2>Companies Page (For Superusers)</h2>
-      <p>List of all companies will go here.</p>
-    </div>
-  );
-};
-
+const Companies = () => <CompanyList />;
 export default Companies;

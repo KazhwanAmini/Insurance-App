@@ -1,12 +1,5 @@
 import React from 'react';
+import CustomerList from '../components/CustomerList';
 
-const Customers = () => {
-  return (
-    <div>
-      <h2>Customers Page (For Company Users)</h2>
-      <p>List of customers for the logged-in company user.</p>
-    </div>
-  );
-};
-
+const Customers = () => <CustomerList />;
 export default Customers;

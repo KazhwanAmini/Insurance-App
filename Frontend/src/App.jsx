@@ -8,11 +8,12 @@
   import Dashboard from './pages/Dashboard';
   import Companies from './pages/Companies';
   import Customers from './pages/Customers';
-
+  import NewCustomer from './pages/NewCustomer';
+  import NewPolicy from './pages/NewPolicy';
 
   function App() {
     return (
-      <Router>
+      <Router>  
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -21,6 +22,8 @@
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/companies" element={<Companies />} />
           <Route path="/customers" element={<Customers />} />
+          <Route path="/add-customer" element={<NewCustomer />} />
+          <Route path="/add-policy" element={<NewPolicy />} />
         </Routes>
       </Router>
     );

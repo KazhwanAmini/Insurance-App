@@ -54,6 +54,10 @@ class CustomerViewSet(viewsets.ModelViewSet):
         if user.is_superuser:
             return Customer.objects.all()
         return Customer.objects.filter(company=user.company)
+ 
+    def perform_create(self, serializer):
+        serializer.save(company=self.request.user.company)
+
 
 
 class InsurancePolicyViewSet(viewsets.ModelViewSet):
