@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Company, User, Customer, InsurancePolicy
+from datetime import date, timedelta
 
 class RegisterSerializer(serializers.Serializer):
     company_name = serializers.CharField(max_length=255)
@@ -12,7 +13,8 @@ class RegisterSerializer(serializers.Serializer):
         company = Company.objects.create(
             name=validated_data['company_name'],
             address=validated_data['company_address'],
-            phone=validated_data['company_phone'],
+            phone_number=validated_data['company_phone'], 
+            service_expiration=date.today() + timedelta(days=365),
         )
         user = User.objects.create_user(
             username=validated_data['username'],

@@ -13,13 +13,14 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import RegisterSerializer
+from rest_framework.generics import GenericAPIView
 
-
-class RegisterView(APIView):
+class RegisterView(GenericAPIView):
+    serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
 
     def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({"message": "Registration successful"}, status=status.HTTP_201_CREATED)

@@ -20,17 +20,15 @@ const Register = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const companyRes = await api.post('companies/', {
-        name: form.company_name,
-        address: form.address,
-        phone: form.phone,
-      });
-
-      const userRes = await api.post('users/', {
+      const companyRes = await api.post('register/', {
+        company_name: form.company_name,
+        company_address: form.address,
+        company_phone: form.phone,
         username: form.username,
         password: form.password,
-        company: companyRes.data.id,
       });
+
+      
 
       alert('Company registered! You can now log in.');
       navigate('/login');

@@ -5,10 +5,11 @@ class Company(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20)
+    service_expiration = models.DateField()
 
-class User(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    username = models.CharField(max_length=100)
+class User(AbstractUser):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
+    username = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=255)
     email = models.EmailField()
     is_superadmin = models.BooleanField(default=False) 
