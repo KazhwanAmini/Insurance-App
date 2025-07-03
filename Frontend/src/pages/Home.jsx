@@ -1,13 +1,19 @@
 // src/pages/Home.js
-import React from 'react';
+import React from 'react'
+import './Home.css'
 
 const Home = () => {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Welcome to the Insurance App</h1>
-      <p>Manage your customers and policies easily.</p>
+    <div className="pro-home-container">
+      <div className="pro-home-card">
+        <h1>Welcome to <span className="highlight">Insurance Portal</span></h1>
+        <p className="subtext">
+          Easily manage your customers and insurance policies in one place.
+        </p>
+       
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

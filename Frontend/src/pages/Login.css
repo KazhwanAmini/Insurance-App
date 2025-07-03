@@ -1,0 +1,72 @@
+.pro-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f9f9f9;
+}
+
+.pro-login-card {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 400px;
+}
+
+.logo-area {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.app-logo {
+  font-size: 36px;
+}
+
+.app-title {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+form label {
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+form input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+form button[type="submit"] {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background-color: #1d4ed8;
+}
+
+.footer-note {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 12px;
+  color: #888;
+}
+

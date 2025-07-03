@@ -1,45 +1,67 @@
-import React, { useState } from 'react';
-import api from '../api';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import api from '../api'
+import { useNavigate } from 'react-router-dom'
+import './Login.css'
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
-  const navigate = useNavigate();
+  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
+    setCredentials({ ...credentials, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await api.post('token/', credentials);
-    localStorage.setItem('access', res.data.access);
-    localStorage.setItem('refresh', res.data.refresh);
+    e.preventDefault()
+    try {
+      const res = await api.post('token/', credentials)
+      localStorage.setItem('access', res.data.access)
+      localStorage.setItem('refresh', res.data.refresh)
 
-    const userRes = await api.get('me/');
-    const isSuperuser = userRes.data.is_superuser;
+      const userRes = await api.get('me/')
+      const isSuperuser = userRes.data.is_superuser
 
-    if (isSuperuser) {
-      navigate('/companies');
-    } else {
-      navigate('/customers');
+      navigate(isSuperuser ? '/companies' : '/customers')
+    } catch (err) {
+      alert('Invalid credentials')
     }
-  } catch (err) {
-    alert('Invalid credentials');
   }
-};
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="username" placeholder="Username" onChange={handleChange} required /><br />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required /><br />
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  );
-};
+    <div className="pro-login-container">
+      <div className="pro-login-card">
+        <div className="logo-area">
+          <span className="app-logo">🛡️</span>
+          <h2 className="app-title">Insurance Portal</h2>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <label>Username</label>
+          <input
+            name="username"
+            placeholder="Enter your username"
+            onChange={handleChange}
+            required
+          />
+          <label>Password</label>
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="••••••••"
+              onChange={handleChange}
+              required
+            />
 
-export default Login;
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        <div className="footer-note">
+          © {new Date().getFullYear()} EasySecure Inc.
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Login

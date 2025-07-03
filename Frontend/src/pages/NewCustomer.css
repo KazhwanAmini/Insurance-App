@@ -1,0 +1,57 @@
+/* src/pages/NewCustomer.css */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.form-card {
+  background-color: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  max-width: 420px;
+  width: 100%;
+  border: 1px solid #e5e7eb;
+}
+
+.form-card h2 {
+  margin-bottom: 24px;
+  color: #1f2937;
+  text-align: center;
+}
+
+form input {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+form input:focus {
+  border-color: #2563eb;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+form button:hover {
+  background-color: #1d4ed8;
+}

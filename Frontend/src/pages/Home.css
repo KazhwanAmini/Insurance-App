@@ -1,0 +1,40 @@
+/* src/pages/Home.css */
+.pro-home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px); /* minus header */
+  background-color: #f4f6f9;
+  padding: 20px;
+}
+
+.pro-home-card {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  max-width: 600px;
+  text-align: center;
+}
+
+.pro-home-card h1 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: #1e293b;
+}
+
+.pro-home-card .highlight {
+  color: #2563eb;
+}
+
+.pro-home-card .subtext {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.home-actions p {
+  font-size: 14px;
+  color: #777;
+}
+

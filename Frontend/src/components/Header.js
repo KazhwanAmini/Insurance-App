@@ -1,30 +1,33 @@
 // src/components/Header.js
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Header.css';
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import './Header.css'
 
 const Header = () => {
-  const token = localStorage.getItem('access');
-  const navigate = useNavigate();
+  const token = localStorage.getItem('access')
+  const navigate = useNavigate()
 
   const handleLogout = () => {
-    localStorage.removeItem('access');
-    localStorage.removeItem('refresh');
-    navigate('/login');
-  };
+  localStorage.clear() // Clears all keys in localStorage
+  navigate('/login')
+}
 
   return (
-    <header className="header">
-      <div className="logo">Insurance App</div>
-      <nav className="nav">
-        <Link to="/">Home</Link>
+    <header className="pro-header">
+      <div className="pro-header-left">
+        <Link className="pro-logo-text" to="/">Home</Link>
+      </div>
+      <nav className="pro-nav">
         {!token && <Link to="/register">Sign Up</Link>}
         {!token && <Link to="/login">Login</Link>}
-        {token && <button onClick={handleLogout}>Logout</button>}
+        {token && (
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        )}
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
-    
+export default Header
