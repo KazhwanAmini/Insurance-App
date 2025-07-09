@@ -37,12 +37,15 @@
   }
 }
 
+
 /* src/App.css */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Cascadia Mono', sans-serif;
   background-color: #f2f2f2;
   margin: 0;
   padding: 0;
+  direction: rtl;
+  text-align: right;
 }
 
 .container {

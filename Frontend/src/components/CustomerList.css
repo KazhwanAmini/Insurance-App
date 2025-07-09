@@ -325,3 +325,189 @@ button:hover {
 .modal-form-grid .full-width {
   grid-column: 1 / 3;
 }
+
+.customer-list-container {
+  padding: 30px;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.customer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.customer-header h2 {
+  margin: 0;
+  color: #1f2937;
+}
+
+.customer-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+}
+
+.customer-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+}
+
+.customer-card p {
+  margin: 6px 0;
+  color: #374151;
+}
+
+.customer-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.edit-button,
+.delete-button,
+.view-policy-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #facc15;
+  color: #1e293b;
+}
+
+.edit-button:hover {
+  background-color: #eab308;
+}
+
+.delete-button {
+  background-color: #ef4444;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #dc2626;
+}
+
+.view-policy-button {
+  margin-top: 10px;
+  background-color: #2563eb;
+  color: white;
+}
+
+.view-policy-button:hover {
+  background-color: #1d4ed8;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  color: #1e293b;
+}
+
+.modal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.modal-form-grid label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #334155;
+}
+
+.modal-form-grid input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+}
+
+.edit-btn {
+  background-color: #22c55e;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #16a34a;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.add-button {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #1d4ed8;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../api';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'
 
 const NewPolicy = () => {
   const [form, setForm] = useState({
@@ -16,6 +17,8 @@ const NewPolicy = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
+  const { t } = useTranslation()
 
   const handleSubmit = async (e) => {
     e.preventDefault();

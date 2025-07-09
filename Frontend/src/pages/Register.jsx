@@ -41,24 +41,24 @@ const Register = () => {
   return (
     <div className="pro-register-container">
       <div className="pro-register-card">
-        <h2>Register Company</h2>
+        <h2>ثبت شرکت</h2>
         <form onSubmit={handleSubmit}>
-          <label>Company Name</label>
-          <input name="company_name" placeholder="Acme Inc." onChange={handleChange} required />
+          <label>نام شرکت</label>
+          <input name="company_name" placeholder="نام شرکت" onChange={handleChange} required />
 
-          <label>Address</label>
-          <input name="address" placeholder="123 Main St" onChange={handleChange} required />
+          <label>آدرس</label>
+          <input name="address" placeholder="آدرس" onChange={handleChange} required />
 
-          <label>Phone</label>
-          <input name="phone" placeholder="+1 123 456 7890" onChange={handleChange} required />
+          <label>شماره تلفن</label>
+          <input name="phone" placeholder="شماره تلفن" onChange={handleChange} required />
 
-          <label>Username</label>
-          <input name="username" placeholder="admin_user" onChange={handleChange} required />
+          <label>نام کاربری</label>
+          <input name="username" placeholder="نام کاربری" onChange={handleChange} required />
 
-          <label>Password</label>
+          <label>رمز</label>
           <input type="password" name="password" placeholder="••••••••" onChange={handleChange} required />
 
-          <button type="submit">Register</button>
+          <button type="submit">ساخت حساب</button>
         </form>
       </div>
     </div>

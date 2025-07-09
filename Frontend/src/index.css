@@ -5,9 +5,24 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
+  text-align: right;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* src/index.css
+body[dir="rtl"], html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Vazirmatn', sans-serif; 
+}
+
+body[dir="rtl"], html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+} */
+

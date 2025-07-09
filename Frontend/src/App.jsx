@@ -10,6 +10,7 @@
   import Customers from './pages/Customers';
   import NewCustomer from './pages/NewCustomer';
   import NewPolicy from './pages/NewPolicy';
+  import PolicyListPage from './pages/PolicyListPage'
 
   function App() {
     return (
@@ -24,6 +25,7 @@
           <Route path="/customers" element={<Customers />} />
           <Route path="/add-customer" element={<NewCustomer />} />
           <Route path="/add-policy" element={<NewPolicy />} />
+          <Route path="/policies/:id" element={<PolicyListPage />} />
         </Routes>
       </Router>
     );

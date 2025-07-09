@@ -34,14 +34,14 @@ const NewCustomer = () => {
   return (
     <div className="form-container">
       <div className="form-card">
-        <h2>Add New Customer</h2>
+        <h2>اضافه کردن مشتری جدید</h2>
         <form onSubmit={handleSubmit}>
-          <input name="full_name" placeholder="Full Name" onChange={handleChange} required />
-          <input name="national_id" placeholder="National ID" onChange={handleChange} required />
-          <input name="address" placeholder="Address" onChange={handleChange} required />
-          <input name="phone" placeholder="Phone" onChange={handleChange} required />
+          <input name="full_name" placeholder="نام و نام خانوادگی" onChange={handleChange} required />
+          <input name="national_id" placeholder="کد ملی" onChange={handleChange} required />
+          <input name="address" placeholder="آدرس" onChange={handleChange} required />
+          <input name="phone" placeholder="شماره" onChange={handleChange} required />
           <input name="birth_date" type="date" onChange={handleChange} required />
-          <button type="submit">Create Customer</button>
+          <button type="submit">ثبت مشتری</button>
         </form>
       </div>
     </div>

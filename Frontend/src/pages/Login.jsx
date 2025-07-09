@@ -33,17 +33,17 @@ const Login = () => {
       <div className="pro-login-card">
         <div className="logo-area">
           <span className="app-logo">🛡️</span>
-          <h2 className="app-title">Insurance Portal</h2>
+          <h2 className="app-title">پرتال بیمه</h2>
         </div>
         <form onSubmit={handleSubmit}>
-          <label>Username</label>
+          <label>نام کاربری</label>
           <input
             name="username"
-            placeholder="Enter your username"
+            placeholder="نام کاربری خود را وارد کنید"
             onChange={handleChange}
             required
           />
-          <label>Password</label>
+          <label>رمز</label>
           <div className="password-wrapper">
             <input
               type={showPassword ? 'text' : 'password'}
@@ -54,10 +54,10 @@ const Login = () => {
             />
 
           </div>
-          <button type="submit">Login</button>
+          <button type="submit">ورود</button>
         </form>
         <div className="footer-note">
-          © {new Date().getFullYear()} EasySecure Inc.
+          © {new Date().getFullYear()}  Inc.
         </div>
       </div>
     </div>

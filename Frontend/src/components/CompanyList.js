@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import api from '../api'
 import './CompanyList.css'
+import { DateObject } from 'react-multi-date-picker';
+import persian from 'react-date-object/calendars/persian';
 
 const fetchCompanies = async () => {
   const { data } = await api.get('/companies/')
@@ -72,18 +74,18 @@ function CompanyList() {
 
   return (
     <div className="company-container">
-      <h2 className="page-title">All Companies</h2>
+      <h2 className="page-title">لیست شرکت ها</h2>
       {sortedCompanies.length === 0 ? (
-        <p style={{ textAlign: 'center' }}>No companies found.</p>
+        <p style={{ textAlign: 'center' }}>هیچ شرکتی یافت نشد</p>
       ) : (
         <table className="company-table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Expires</th>
-              <th>Actions</th>
+              <th>اسم</th>
+              <th>شماره تلفن</th>
+              <th>آدرس</th>
+              <th>انقضا</th>
+              <th>عملیات</th>
             </tr>
           </thead>
           <tbody>
@@ -94,14 +96,14 @@ function CompanyList() {
                   <td>{company.name}</td>
                   <td>{company.phone_number}</td>
                   <td>{company.address}</td>
-                  <td>{company.service_expiration}</td>
+                  <td>{company.service_expiration ? new DateObject(company.service_expiration).convert(persian).format("YYYY/MM/DD") : '-'}</td>
                   <td>
-                    <button onClick={() => handleEditClick(company)}>Edit</button>
+                    <button onClick={() => handleEditClick(company)}>ویرایش</button>
                     <button
                       onClick={() => handleDelete(company.id)}
                       className="delete-btn"
                     >
-                      Delete
+                      حذف
                     </button>
                   </td>
                 </tr>
@@ -114,11 +116,11 @@ function CompanyList() {
       {editingCompany && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>Edit Company</h3>
+            <h3>ویرایش شرکت</h3>
             <form onSubmit={handleUpdate}>
               <div className="form-grid">
                 <div>
-                  <label>Company Name</label>
+                  <label>اسم شرکت</label>
                   <input
                     name="name"
                     value={form.name}
@@ -127,7 +129,7 @@ function CompanyList() {
                   />
                 </div>
                 <div>
-                  <label>Phone Number</label>
+                  <label>شماره تلفن</label>
                   <input
                     name="phone_number"
                     value={form.phone_number}
@@ -139,7 +141,7 @@ function CompanyList() {
               </div>
               <div>
                 <div>
-                  <label>Service Expiration</label>
+                  <label>انقضای خدمات</label>
                   <input
                     name="service_expiration"
                     type="date"
@@ -148,7 +150,7 @@ function CompanyList() {
                     required
                   />
                 </div>
-                <label>Address</label>
+                <label>آدرس</label>
                 <input
                   name="address"
                   value={form.address}
@@ -158,14 +160,14 @@ function CompanyList() {
               </div>
               <div className="modal-actions">
                 <button type="submit" className="edit-btn">
-                  Save
+                  ذخیره
                 </button>
                 <button
                   type="button"
                   className="delete-btn"
                   onClick={() => setEditingCompany(null)}
                 >
-                  Cancel
+                  انصراف
                 </button>
               </div>
             </form>
