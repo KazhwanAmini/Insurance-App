@@ -33,7 +33,7 @@ const Login = () => {
       <div className="pro-login-card">
         <div className="logo-area">
           <span className="app-logo">🛡️</span>
-          <h2 className="app-title">پرتال بیمه</h2>
+          <h2 className="app-title">پورتال بیمه نامه ها</h2>
         </div>
         <form onSubmit={handleSubmit}>
           <label>نام کاربری</label>
@@ -57,7 +57,7 @@ const Login = () => {
           <button type="submit">ورود</button>
         </form>
         <div className="footer-note">
-          © {new Date().getFullYear()}  Inc.
+          © {new Date().getFullYear()}  کلیه حقوق محفوظ است.
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="pro-home-container">
       <div className="pro-home-card">
-        <h1>به سایت بیمه نامه <span className="highlight">خوش آمدید</span></h1>
+        <h1>به پورتال مدیریت بیمه نامه ها <span className="highlight">خوش آمدید</span></h1>
         <p className="subtext">
           به راحتی مشتریان و بیمه نامه های خود را در یک مکان مدیریت کنید.
         </p>

@@ -6,7 +6,9 @@ import './CustomerList.css'
 import { useTranslation } from 'react-i18next';
 import { DateObject } from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
-import {DateTimeInput, DateTimeInputSimple, DateInput, DateInputSimple} from 'react-hichestan-datetimepicker';
+import gregorian from 'react-date-object/calendars/gregorian';
+import DatePicker from "react-multi-date-picker"
+import persian_fa from "react-date-object/locales/persian_fa"
 
 const fetchCustomers = async () => {
   const { data } = await api.get('customers/')
@@ -27,7 +29,7 @@ export default function CustomerList() {
     full_name: '',
     phone: '',
     national_id: '',
-    birth_date: '',
+    birth_date:  new DateObject({ calendar: persian }),
     address: '',
   })
 
@@ -60,18 +62,36 @@ export default function CustomerList() {
       full_name: customer.full_name,
       phone: customer.phone,
       national_id: customer.national_id,
-      birth_date: customer.birth_date,
+      birth_date: customer.birth_date ? new DateObject(customer.birth_date).convert(persian).format("YYYY/MM/DD") :new DateObject({ calendar: persian }),
       address: customer.address || '',
     })
   }
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+  
+const handleChange = (change) => {
+  // For regular inputs (change is an event)
+  if (change.target) {
+    const { name, value } = change.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  } 
+  // For DatePicker (change is a date value)
+  else {
+    setForm(prev => ({ ...prev, birth_date: change }));
   }
+};
 
   const handleUpdate = (e) => {
     e.preventDefault()
-    updateMutation.mutate({ id: editingCustomer.id, data: form })
+    const date = new Date(form.birth_date);
+    // Format as YYYY/MM/DD
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const submissionData = {
+      ...form,
+      // Convert Persian date back to timestamp
+      birth_date: formattedDate
+    };   
+    console.log(submissionData) 
+    updateMutation.mutate({ id: editingCustomer.id, data: submissionData })
   }
 
   const handleDelete = (id) => {
@@ -79,6 +99,7 @@ export default function CustomerList() {
       deleteMutation.mutate(id)
     }
   }
+
 
 const { t } = useTranslation()
 
@@ -113,7 +134,7 @@ const { t } = useTranslation()
               <p><strong>{t('phone')} :</strong> {c.phone}</p>
               <p><strong>{t('national_id')} :</strong> {c.national_id}</p>
               <p><strong>{t('birth_date')}  :</strong>
-                  {c.birth_date ? new DateObject(c.birth_date).convert(persian).format("YYYY/MM/DD") : '-'}</p>
+              {c.birth_date ? new DateObject(c.birth_date).convert(persian).format("YYYY/MM/DD") : '-'}</p>
               <p><strong>{t('address')} :</strong> {c.address}</p>
               <p><strong>{t('policy_count')} :</strong> {customerPolicies.length}</p>
 
@@ -136,7 +157,7 @@ const { t } = useTranslation()
       {editingCustomer && (
         <div className="modal-overlay" onClick={handleCloseModal}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h3>Edit Customer</h3>
+            <h3>ویرایش مشتری</h3>
             <form onSubmit={handleUpdate} className="modal-form-grid">
               <div>
                 <label>{t('full_name')}</label>
@@ -152,18 +173,22 @@ const { t } = useTranslation()
               </div>
               <div>
                 <label>{t('birth_date')}</label>
-                <DateTimeInput value={form.birth_date} name={'birth_date'} onChange={handleChange} />                
+                   <DatePicker
+                    calendar={persian}
+                    locale={persian_fa}
+                    calendarPosition="top-left" name="birth_date" value={form.birth_date} format="YYYY/MM/DD"  onChange={handleChange} required
+                  />                
                 {/* <input name="birth_date" type="date" value={form.birth_date} onChange={handleChange} required /> */}
               </div>
               <div className="full-width">
-                <label>{t('add_customer')}</label>
+                <label>{t('address')}</label>
                 <input name="address" value={form.address} onChange={handleChange} required />
               </div>
               <div className="modal-actions full-width">
                 <button type="submit" className="edit-btn" disabled={updateMutation.isLoading}>
                    {t('save')}
                 </button>
-                <button type="button" className="delete-btn" onClick={handleCloseModal}>
+                <button type="button"  onClick={handleCloseModal}>
                   {t('cancel')}
                 </button>
               </div>

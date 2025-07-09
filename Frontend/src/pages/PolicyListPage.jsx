@@ -185,13 +185,13 @@ export default function PolicyListPage() {
               </div>
               <div className="modal-actions full-width">
                 <button type="submit" className="edit-btn">{t('save')}</button>
-                <button type="button" className="delete-btn" onClick={() => setEditingPolicy(null)}>{t('cancel')}</button>
+                <button type="button"  onClick={() => setEditingPolicy(null)}>{t('cancel')}</button>
               </div>
             </form>
           </div>
         </div>
       )}
-
+  
       {/* Add Policy Modal */}
       {showAddModal && (
         <div className="modal-overlay" onClick={() => setShowAddModal(false)}>
@@ -229,7 +229,7 @@ export default function PolicyListPage() {
               </div>
               <div className="modal-actions full-width">
                 <button type="submit" className="edit-btn">{t('save')}</button>
-                <button type="button" className="delete-btn" onClick={() => setShowAddModal(false)}>{t('cancel')}</button>
+                <button type="button"  onClick={() => setShowAddModal(false)}>{t('cancel')}</button>
               </div>
             </form>
           </div>
