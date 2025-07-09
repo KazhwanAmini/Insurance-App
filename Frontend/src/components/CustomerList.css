@@ -523,3 +523,98 @@ button:hover {
 .add-button:hover {
   background-color: #1d4ed8;
 }
+
+
+/* Add these styles to your existing CustomerList.css */
+
+.search-add-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.search-container {
+  position: relative;
+  flex-grow: 1;
+  max-width: 400px;
+  margin-left: 400px;
+}
+
+
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  padding-right: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+  background-color: white;
+  color: #374151;
+}
+
+.search-container input::placeholder {
+  font-weight: bold; /* Makes placeholder text bold */
+  color: #646a74; /* Optional: slightly lighter color for placeholder */
+  opacity: 1; /* Ensures full visibility */
+}
+
+
+.search-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 5px;
+  line-height: 1;
+}
+
+.clear-search-btn:hover {
+  color: #6b7280;
+}
+
+.no-results-text {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+  font-size: 16px;
+  grid-column: 1 / -1;
+}
+
+/* RTL support for Persian */
+[dir="rtl"] .search-input {
+  padding-right: 16px;
+  padding-left: 40px;
+}
+
+[dir="rtl"] .clear-search-btn {
+  right: auto;
+  left: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-add-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container {
+    max-width: 100%;
+  }
+  
+  .add-button {
+    width: 100%;
+  }
+}

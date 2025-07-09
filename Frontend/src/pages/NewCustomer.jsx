@@ -1,8 +1,11 @@
-// src/pages/NewCustomer.jsx
 import React, { useState } from 'react'
 import axios from '../api'
 import { useNavigate } from 'react-router-dom'
 import './NewCustomer.css'
+import { DateObject } from 'react-multi-date-picker'
+import persian from 'react-date-object/calendars/persian'
+import DatePicker from "react-multi-date-picker"
+import persian_fa from "react-date-object/locales/persian_fa"
 
 const NewCustomer = () => {
   const [form, setForm] = useState({
@@ -12,23 +15,45 @@ const NewCustomer = () => {
     phone: '',
     birth_date: '',
   })
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = (change) => {
+    if (change.target) {
+      const { name, value } = change.target
+      setForm(prev => ({ ...prev, [name]: value }))
+    } else {
+      setForm(prev => ({ ...prev, birth_date: change }))
+    }
+  }
+
+  const formatDateForBackend = (date) => {
+    if (!date) return ''
+    const dateObject = new DateObject(date).convert(persian, 'gregorian')
+    return `${dateObject.year}-${String(dateObject.month).padStart(2, '0')}-${String(dateObject.day).padStart(2, '0')}`
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsSubmitting(true)
+    
     try {
-      await axios.post('/customers/', form)
-      alert('✅ Customer created successfully!')
+      await axios.post('/customers/', {
+        ...form,
+        birth_date: formatDateForBackend(form.birth_date)
+      })
+      alert('✅ مشتری با موفقیت ثبت شد!')
       navigate('/customers')
     } catch (err) {
       console.error(err)
-      alert('❌ Failed to create customer.')
+      alert('❌ خطا در ثبت مشتری. لطفاً دوباره تلاش کنید.')
+    } finally {
+      setIsSubmitting(false)
     }
+  }
+
+  const handleCancel = () => {
+    navigate('/customers')
   }
 
   return (
@@ -36,12 +61,56 @@ const NewCustomer = () => {
       <div className="form-card">
         <h2>اضافه کردن مشتری جدید</h2>
         <form onSubmit={handleSubmit}>
-          <input name="full_name" placeholder="نام و نام خانوادگی" onChange={handleChange} required />
-          <input name="national_id" placeholder="کد ملی" onChange={handleChange} required />
-          <input name="address" placeholder="آدرس" onChange={handleChange} required />
-          <input name="phone" placeholder="شماره" onChange={handleChange} required />
-          <input name="birth_date" type="date" onChange={handleChange} required />
-          <button type="submit">ثبت مشتری</button>
+          <input 
+            name="full_name" 
+            placeholder="نام و نام خانوادگی" 
+            onChange={handleChange} 
+            required 
+          />
+          <input 
+            name="national_id" 
+            placeholder="کد ملی" 
+            onChange={handleChange} 
+            required 
+            maxLength="10"
+            pattern="\d{10}"
+            title="کد ملی باید 10 رقم باشد"
+          />
+          <input 
+            name="address" 
+            placeholder="آدرس" 
+            onChange={handleChange} 
+            required 
+          />
+          <input 
+            name="phone" 
+            placeholder="شماره تماس" 
+            onChange={handleChange} 
+            required 
+            pattern="09\d{9}"
+            title="شماره تماس باید با 09 شروع شده و 11 رقم باشد"
+          />
+          <DatePicker
+            calendar={persian}
+            locale={persian_fa}
+            calendarPosition="top-left"
+            placeholder='تاریخ تولد'
+            name="birth_date"
+            value={form.birth_date}
+            format="YYYY/MM/DD"
+            onChange={handleChange}
+            required
+          />
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'در حال ثبت...' : 'ثبت مشتری'}
+          </button>
+          <button 
+            type="button" 
+            className="cancel-btn"
+            onClick={handleCancel}
+          >
+            انصراف
+          </button>
         </form>
       </div>
     </div>

@@ -55,3 +55,12 @@ form button {
 form button:hover {
   background-color: #1d4ed8;
 }
+
+.cancel-btn{
+  margin-top: 10px;
+  background: gray;
+}
+
+.rmdp-container{
+  width: 96%;
+}
