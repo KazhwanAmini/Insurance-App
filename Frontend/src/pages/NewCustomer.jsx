@@ -27,20 +27,16 @@ const NewCustomer = () => {
     }
   }
 
-  const formatDateForBackend = (date) => {
-    if (!date) return ''
-    const dateObject = new DateObject(date).convert(persian, 'gregorian')
-    return `${dateObject.year}-${String(dateObject.month).padStart(2, '0')}-${String(dateObject.day).padStart(2, '0')}`
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+    const date = new Date(form.birth_date);
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
     try {
       await axios.post('/customers/', {
         ...form,
-        birth_date: formatDateForBackend(form.birth_date)
+        birth_date: formattedDate
       })
       alert('✅ مشتری با موفقیت ثبت شد!')
       navigate('/customers')

@@ -6,10 +6,13 @@
 }
 
 .customer-header {
-  display: flex;
+  display: grid;
+  gap: 16px;
+
+  /* display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 24px; */
 }
 
 .customer-header h2 {
@@ -529,16 +532,16 @@ button:hover {
 
 .search-add-container {
   display: flex;
-  gap: 16px;
+  gap: 2px;
   align-items: center;
 }
 
-.search-container {
+/* .search-container {
   position: relative;
   flex-grow: 1;
   max-width: 400px;
   margin-left: 400px;
-}
+} */
 
 
 .search-input {

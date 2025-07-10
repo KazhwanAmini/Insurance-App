@@ -55,12 +55,8 @@ export default function PolicyListPage() {
     details: '',
   })
 
-  const formatForBackend = (persianDate) => {
-    if (!persianDate) return ''
-    const date = new DateObject(persianDate).convert(persian, 'gregorian')
-    return `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`
-  }
-
+  // cons
+  
   const parseBackendDate = (gregorianDate) => {
     if (!gregorianDate) return null
     try {
@@ -92,11 +88,13 @@ export default function PolicyListPage() {
   })
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => api.put(`/policies/${id}/`, {
-      ...data,
-      start_date: formatForBackend(data.start_date),
-      end_date: formatForBackend(data.end_date)
-    }),
+    mutationFn: ({ id, data }) => api.put(`/policies/${id}/`,data
+    //    {
+    //   ...data,
+    //   start_date: formatForBackend(data.start_date),
+    //   end_date: formatForBackend(data.end_date)
+    // }
+    ),
     onSuccess: () => {
       queryClient.invalidateQueries(['policies'])
       setEditingPolicy(null)
@@ -104,12 +102,7 @@ export default function PolicyListPage() {
   })
 
   const addMutation = useMutation({
-    mutationFn: (data) => api.post('/policies/', {
-      ...data,
-      start_date: formatForBackend(data.start_date),
-      end_date: formatForBackend(data.end_date),
-      customer: parseInt(id)
-    }),
+    mutationFn: (data) => api.post('/policies/', data),
     onSuccess: () => {
       queryClient.invalidateQueries(['policies'])
       setShowAddModal(false)
@@ -139,6 +132,39 @@ export default function PolicyListPage() {
       deleteMutation.mutate(id)
     }
   }
+
+  const handleUpdate = (e) => {
+      e.preventDefault()
+      const sdate = new Date(editForm.start_date);
+      const formattedSDate = `${sdate.getFullYear()}-${String(sdate.getMonth() + 1).padStart(2, '0')}-${String(sdate.getDate()).padStart(2, '0')}`;
+      const edate = new Date(editForm.end_date);
+      const formattedEDate = `${edate.getFullYear()}-${String(edate.getMonth() + 1).padStart(2, '0')}-${String(edate.getDate()).padStart(2, '0')}`;
+
+      updateMutation.mutate({ 
+        id: editingPolicy.id, 
+        data: { 
+          ...editForm, 
+          customer: parseInt(id),
+          start_date: formattedSDate,
+          end_date: formattedEDate
+        } 
+      })
+  };
+
+  const handleAdd = (e) => {
+      e.preventDefault()
+      const sdate = new Date(newPolicy.start_date);
+      const formattedSDate = `${sdate.getFullYear()}-${String(sdate.getMonth() + 1).padStart(2, '0')}-${String(sdate.getDate()).padStart(2, '0')}`;
+      const edate = new Date(newPolicy.end_date);
+      const formattedEDate = `${edate.getFullYear()}-${String(edate.getMonth() + 1).padStart(2, '0')}-${String(edate.getDate()).padStart(2, '0')}`;
+
+      addMutation.mutate({ 
+          ...newPolicy, 
+          start_date: formattedSDate,
+          customer: parseInt(id),
+          end_date: formattedEDate        
+      })
+  };
 
   if (loadingPolicies || loadingCustomers) return <p style={{ textAlign: 'center' }}>{t('loading')}</p>
   if (!customer) return <p style={{ textAlign: 'center' }}>{t('customer_not_found')}</p>
@@ -170,7 +196,7 @@ export default function PolicyListPage() {
           <tbody>
             {customerPolicies.map((policy) => (
               <tr key={policy.id}>
-                <td>{policy.policy_type}</td>
+                <td>{t(policy.policy_type)}</td>
                 <td>{formatDateForDisplay(policy.start_date)}</td>
                 <td>{formatDateForDisplay(policy.end_date)}</td>
                 <td>${policy.payment_amount}</td>
@@ -195,18 +221,7 @@ export default function PolicyListPage() {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h3>{t('edit_policy')}</h3>
             <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                updateMutation.mutate({ 
-                  id: editingPolicy.id, 
-                  data: { 
-                    ...editForm, 
-                    customer: parseInt(id),
-                    start_date: editForm.start_date,
-                    end_date: editForm.end_date
-                  } 
-                })
-              }}
+              onSubmit={handleUpdate}
               className="modal-form-grid"
             >
               <div>
@@ -216,8 +231,8 @@ export default function PolicyListPage() {
                   value={editForm.policy_type} 
                   onChange={(e) => setEditForm({ ...editForm, policy_type: e.target.value })}
                 >
-                  <option value="Car">{t('car')}</option>
-                  <option value="Life">{t('life')}</option>
+                  <option value="Car">{t('Car')}</option>
+                  <option value="Life">{t('Life')}</option>
                 </select>
               </div>
               <div>
@@ -281,15 +296,7 @@ export default function PolicyListPage() {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h3>{t('add_policy')}</h3>
             <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                addMutation.mutate({ 
-                  ...newPolicy, 
-                  customer: parseInt(id),
-                  start_date: newPolicy.start_date,
-                  end_date: newPolicy.end_date
-                })
-              }}
+              onSubmit={handleAdd}
               className="modal-form-grid"
             >
               <div>
@@ -299,8 +306,8 @@ export default function PolicyListPage() {
                   value={newPolicy.policy_type} 
                   onChange={(e) => setNewPolicy({ ...newPolicy, policy_type: e.target.value })}
                 >
-                  <option value="Car">{t('car')}</option>
-                  <option value="Life">{t('life')}</option>
+                  <option value="Car">{t('Car')}</option>
+                  <option value="Life">{t('Life')}</option>
                 </select>
               </div>
               <div>

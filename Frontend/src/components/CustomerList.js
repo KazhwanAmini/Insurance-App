@@ -123,9 +123,8 @@ export default function CustomerList() {
   return (
     <div className="customer-list-container">
       <div className="customer-header">
-        <h2>{t('your_customers')}</h2>
+        <div><h2>{t('your_customers')}</h2></div>
         <div className="search-add-container">
-          <div className="search-container">
             <input
               type="text"
               placeholder="جستجو (نام، کد ملی، تلفن، آدرس)"
@@ -141,8 +140,9 @@ export default function CustomerList() {
                 ×
               </button>
             )}
-          </div>
-          <button className="add-button" onClick={() => navigate('/add-customer')}>
+        </div>
+        <div>
+             <button className="add-button" onClick={() => navigate('/add-customer')}>
             ➕ {t('add_customer')}
           </button>
         </div>
