@@ -2,6 +2,11 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class Company(models.Model):
+    custom_sms_provider = models.BooleanField(default=False ,null=True)
+    sms_address = models.CharField(null=True)
+    sms_token = models.CharField(null=True)
+    sms_user = models.CharField(null=True)
+    sms_password = models.CharField(null=True)
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20)

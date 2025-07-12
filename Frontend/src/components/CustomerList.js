@@ -223,7 +223,7 @@ export default function CustomerList() {
                   {t('cancel')}
                 </button>
               </div>
-            </form>
+            </form> 
           </div>
         </div>
       )}
